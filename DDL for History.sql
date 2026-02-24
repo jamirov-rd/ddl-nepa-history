@@ -25,6 +25,9 @@ CREATE TABLE NEPABPM.Project.DocumentFinalization (
 ALTER TABLE NEPABPM.Project.DocumentFinalization ADD CONSTRAINT DocumentFinalization_Document_FK FOREIGN KEY (FkDocumentId) REFERENCES NEPABPM.Project.Document(DocumentId);
 ALTER TABLE NEPABPM.Project.DocumentFinalization ADD CONSTRAINT DocumentFinalization_Project_FK FOREIGN KEY (FkProjectId) REFERENCES NEPABPM.Project.Project(ProjectId);
 
+CREATE NONCLUSTERED INDEX IX_DocumentFinalization_FinalizationDate
+ON NEPABPM.App.DocumentFinalization (FinalizationDate);
+
 
 
 
@@ -38,6 +41,7 @@ ALTER TABLE NEPABPM.Project.DocumentFinalization ADD CONSTRAINT DocumentFinaliza
 CREATE TABLE NEPABPM.Project.FormQuestionAnswersHistory (
 	FormQuestionAnswersHistoryId int IDENTITY(1,1) NOT NULL,
 	FkDocumentFinalizationId int NOT NULL,
+	FormQuestionAnswersId int NOT NULL,
 	FkFormQuestionId int NOT NULL,
 	IsSkipped bit NULL,
 	YesNoAnswer bit NULL,
@@ -55,6 +59,12 @@ CREATE TABLE NEPABPM.Project.FormQuestionAnswersHistory (
 
 ALTER TABLE NEPABPM.Project.FormQuestionAnswersHistory ADD CONSTRAINT FK_FormQuestionAnswersHistory_DocumentFinalization FOREIGN KEY (FkDocumentFinalizationId) REFERENCES NEPABPM.Project.DocumentFinalization(DocumentFinalizationId);
 
+CREATE NONCLUSTERED INDEX IX_FormQuestionAnswersHistory_FormQuestionAnswersId
+ON NEPABPM.App.FormQuestionAnswersHistory (FormQuestionAnswersId);
+
+CREATE NONCLUSTERED INDEX IX_FormQuestionAnswersHistory_FkFormQuestionId
+ON NEPABPM.App.FormQuestionAnswersHistory (FkFormQuestionId);
+
 
 
 
@@ -68,6 +78,8 @@ ALTER TABLE NEPABPM.Project.FormQuestionAnswersHistory ADD CONSTRAINT FK_FormQue
 CREATE TABLE NEPABPM.Project.FormDropdownAnswersHistory (
 	FormDropdownAnswersHistoryId int IDENTITY(1,1) NOT NULL,
 	FkFormQuestionAnswersHistoryId int NOT NULL,
+	FormDropdownAnswersId int NOT NULL,
+	FkFormQuestionAnswersId int NOT NULL,
 	FkFormDropdownOptionId int NOT NULL,
 	CreatedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CreatedDate datetime NOT NULL,
@@ -78,6 +90,15 @@ CREATE TABLE NEPABPM.Project.FormDropdownAnswersHistory (
 -- NEPABPM.Project.FormDropdownAnswersHistory foreign keys
 
 ALTER TABLE NEPABPM.Project.FormDropdownAnswersHistory ADD CONSTRAINT FK_FormDropdownAnswersHistory_FormQuestionAnswersHistory FOREIGN KEY (FkFormQuestionAnswersHistoryId) REFERENCES NEPABPM.Project.FormQuestionAnswersHistory(FormQuestionAnswersHistoryId);
+
+CREATE NONCLUSTERED INDEX IX_FormDropdownAnswersHistory_FormDropdownAnswersId
+ON NEPABPM.App.FormDropdownAnswersHistory (FormDropdownAnswersId);
+
+CREATE NONCLUSTERED INDEX IX_FormDropdownAnswersHistory_FkFormQuestionAnswersId
+ON NEPABPM.App.FormDropdownAnswersHistory (FkFormQuestionAnswersId);
+
+CREATE NONCLUSTERED INDEX IX_FormDropdownAnswersHistory_FkFormDropdownOptionId
+ON NEPABPM.App.FormDropdownAnswersHistory (FkFormDropdownOptionId);
 
 
 
@@ -95,6 +116,7 @@ ALTER TABLE NEPABPM.Project.FormDropdownAnswersHistory ADD CONSTRAINT FK_FormDro
 CREATE TABLE NEPABPM.Project.FormSubSectionAnswersHistory (
 	FormSubSectionAnswersHistoryId int IDENTITY(1,1) NOT NULL,
 	FkDocumentFinalizationId int NOT NULL,
+	FormSubSectionAnswersId int IDENTITY(1,1) NOT NULL,
 	FkFormSubSectionId int NOT NULL,
 	SummaryAnswer varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CreatedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -110,6 +132,12 @@ CREATE TABLE NEPABPM.Project.FormSubSectionAnswersHistory (
 -- NEPABPM.Project.FormSubSectionAnswersHistory foreign keys
 
 ALTER TABLE NEPABPM.Project.FormSubSectionAnswersHistory ADD CONSTRAINT FK_FormSubSectionAnswersHistory_DocumentFinalization FOREIGN KEY (FkDocumentFinalizationId) REFERENCES NEPABPM.Project.DocumentFinalization(DocumentFinalizationId);
+
+CREATE NONCLUSTERED INDEX IX_FormSubSectionAnswersHistory_FormSubSectionAnswersId
+ON NEPABPM.App.FormSubSectionAnswersHistory (FormSubSectionAnswersId);
+
+CREATE NONCLUSTERED INDEX IX_FormSubSectionAnswersHistory_FkFormSubSectionId
+ON NEPABPM.App.FormSubSectionAnswersHistory (FkFormSubSectionId);
 
 
 
