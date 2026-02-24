@@ -28,6 +28,15 @@ CREATE TABLE NEPABPM.App.FormDropdownOptionHistory (
 	CONSTRAINT PK__FormDropdownOptionHistory__FormDropdownOptionHistoryId PRIMARY KEY (FormDropdownOptionHistoryId)
 );
 
+CREATE NONCLUSTERED INDEX IX_FormDropdownOptionHistory_FormDropdownOptionId
+ON NEPABPM.App.FormDropdownOptionHistory (FormDropdownOptionId);
+
+CREATE NONCLUSTERED INDEX IX_FormDropdownOptionHistory_FkFormQuestionId
+ON NEPABPM.App.FormDropdownOptionHistory (FkFormQuestionId);
+
+CREATE NONCLUSTERED INDEX IX_FormDropdownOptionHistory_HistoryDates
+ON NEPABPM.App.FormDropdownOptionHistory (HistoryDateFrom, HistoryDateTo);
+
 
 
 
@@ -65,6 +74,11 @@ CREATE TABLE NEPABPM.App.FormQuestionHistory (
 	CONSTRAINT PK__FormQuestionHistory__FormQuestionHistoryId PRIMARY KEY (FormQuestionHistoryId)
 );
 
+CREATE NONCLUSTERED INDEX IX_FormQuestionHistory_FormQuestionId
+ON NEPABPM.App.FormQuestionHistory (FormQuestionId);
+
+CREATE NONCLUSTERED INDEX IX_FormQuestionHistory_HistoryDates
+ON NEPABPM.App.FormQuestionHistory (HistoryDateFrom, HistoryDateTo);
 
 -- NEPABPM.App.FormQuestionHistory foreign keys
 
@@ -98,6 +112,14 @@ CREATE TABLE NEPABPM.App.FormSubSectionHistory (
 	CONSTRAINT PK__FormSubSectionHistory__FormSubSectionHistoryId PRIMARY KEY (FormSubSectionHistoryId)
 );
 
+CREATE NONCLUSTERED INDEX IX_FormSubSectionHistory_FormSubSectionId
+ON NEPABPM.App.FormSubSectionHistory (FormSubSectionId);
+
+CREATE NONCLUSTERED INDEX IX_FormSubSectionHistory_FkFormSectionId
+ON NEPABPM.App.FormSubSectionHistory (FkFormSectionId);
+
+CREATE NONCLUSTERED INDEX IX_FormSubSectionHistory_HistoryDates
+ON NEPABPM.App.FormSubSectionHistory (HistoryDateFrom, HistoryDateTo);
 
 -- NEPABPM.App.FormSubSectionHistory foreign keys
 
@@ -126,6 +148,12 @@ CREATE TABLE NEPABPM.App.FormSectionHistory (
 	CONSTRAINT PK__FormSectionHistory__FormSectionHistoryId PRIMARY KEY (FormSectionHistoryId)
 );
 
+CREATE NONCLUSTERED INDEX IX_FormSectionHistory_FormSectionId
+ON NEPABPM.App.FormSectionHistory (FormSectionId);
+
+CREATE NONCLUSTERED INDEX IX_FormSectionHistory_HistoryDates
+ON NEPABPM.App.FormSectionHistory (HistoryDateFrom, HistoryDateTo);
+
 
 
 
@@ -153,6 +181,18 @@ CREATE TABLE NEPABPM.App.FormSubSectionQuestionHistory (
 	HideAllSectionsIfAnswerIs bit NULL,
 	CONSTRAINT PK__FormSubSectionQuestionHistory__FormSubSectionQuestionHistoryId PRIMARY KEY (FormSubSectionQuestionHistoryId)
 );
+
+CREATE NONCLUSTERED INDEX IX_FormSubSectionQuestionHistory_FormSubSectionQuestionId
+ON NEPABPM.App.FormSubSectionQuestionHistory (FormSubSectionQuestionId);
+
+CREATE NONCLUSTERED INDEX IX_FormSubSectionQuestionHistory_FkFormSubSectionId
+ON NEPABPM.App.FormSubSectionQuestionHistory (FkFormSubSectionId);
+
+CREATE NONCLUSTERED INDEX IX_FormSubSectionQuestionHistory_FkFormQuestionId
+ON NEPABPM.App.FormSubSectionQuestionHistory (FkFormQuestionId);
+
+CREATE NONCLUSTERED INDEX IX_FormSubSectionQuestionHistory_HistoryDates
+ON NEPABPM.App.FormSubSectionQuestionHistory (HistoryDateFrom, HistoryDateTo);
 
 
 
