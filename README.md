@@ -15,11 +15,12 @@ SQL:
 
 General Idea:
 ![DDL for History - General Idea.png](DDL%20for%20History%20-%20General%20Idea.png)
-    
+
 
 # 3. App history
 
-SQL: TODO
+SQL: 
+
 
 General Idea:
 - create a history table for each of those App entities:
