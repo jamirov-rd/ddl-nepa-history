@@ -4,15 +4,40 @@
 
 
 
--- NEPABPM.Project.FormQuestionAnswers definition
+-- NEPABPM.Project.DocumentFinalization definition
 
 -- Drop table
 
--- DROP TABLE NEPABPM.Project.FormQuestionAnswers;
+-- DROP TABLE NEPABPM.Project.DocumentFinalization;
 
-CREATE TABLE NEPABPM.Project.FormQuestionAnswers (
-	FormQuestionAnswersId int IDENTITY(1,1) NOT NULL,
+CREATE TABLE NEPABPM.Project.DocumentFinalization (
+	DocumentFinalizationId int IDENTITY(1,1) NOT NULL,
 	FkProjectId int NOT NULL,
+	FkDocumentId int NOT NULL,
+	FinalizedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	FinalizationDate datetime NULL
+	CONSTRAINT PK__DocumentFinalization__DocumentFinalizationId PRIMARY KEY (DocumentFinalizationId)
+);
+
+
+-- NEPABPM.Project.DocumentFinalization foreign keys
+
+ALTER TABLE NEPABPM.Project.DocumentFinalization ADD CONSTRAINT DocumentFinalization_Document_FK FOREIGN KEY (FkDocumentId) REFERENCES NEPABPM.Project.Document(DocumentId);
+ALTER TABLE NEPABPM.Project.DocumentFinalization ADD CONSTRAINT DocumentFinalization_Project_FK FOREIGN KEY (FkProjectId) REFERENCES NEPABPM.Project.Project(ProjectId);
+
+
+
+
+
+-- NEPABPM.Project.FormQuestionAnswersHistory definition
+
+-- Drop table
+
+-- DROP TABLE NEPABPM.Project.FormQuestionAnswersHistory;
+
+CREATE TABLE NEPABPM.Project.FormQuestionAnswersHistory (
+	FormQuestionAnswersHistoryId int IDENTITY(1,1) NOT NULL,
+	FkDocumentFinalizationId int NOT NULL,
 	FkFormQuestionId int NOT NULL,
 	IsSkipped bit NULL,
 	YesNoAnswer bit NULL,
@@ -22,59 +47,54 @@ CREATE TABLE NEPABPM.Project.FormQuestionAnswers (
 	UpdatedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	UpdatedDate datetime NOT NULL,
 	TextAnswerUnformatted varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	CONSTRAINT PK__FormQues__9346C68F6D85B52D PRIMARY KEY (FormQuestionAnswersId),
-	CONSTRAINT UC_FormQuestionAnswer UNIQUE (FkProjectId,FkFormQuestionId)
+	CONSTRAINT PK__FormQuestionAnswersHistory__FormQuestionAnswersHistoryId PRIMARY KEY (FormQuestionAnswersHistoryId)
 );
 
 
--- NEPABPM.Project.FormQuestionAnswers foreign keys
+-- NEPABPM.Project.FormQuestionAnswersHistory foreign keys
 
-ALTER TABLE NEPABPM.Project.FormQuestionAnswers ADD CONSTRAINT FK_FormQuestionAnswers_FormQuestion FOREIGN KEY (FkFormQuestionId) REFERENCES NEPABPM.App.FormQuestion(FormQuestionId);
-ALTER TABLE NEPABPM.Project.FormQuestionAnswers ADD CONSTRAINT FK_FormQuestionAnswers_Project FOREIGN KEY (FkProjectId) REFERENCES NEPABPM.Project.Project(ProjectId);
-
+ALTER TABLE NEPABPM.Project.FormQuestionAnswersHistory ADD CONSTRAINT FK_FormQuestionAnswersHistory_DocumentFinalization FOREIGN KEY (FkDocumentFinalizationId) REFERENCES NEPABPM.Project.DocumentFinalization(DocumentFinalizationId);
 
 
 
 
--- NEPABPM.Project.FormDropdownAnswers definition
+
+-- NEPABPM.Project.FormDropdownAnswersHistory definition
 
 -- Drop table
 
--- DROP TABLE NEPABPM.Project.FormDropdownAnswers;
+-- DROP TABLE NEPABPM.Project.FormDropdownAnswersHistory;
 
-CREATE TABLE NEPABPM.Project.FormDropdownAnswers (
-	FormDropdownAnswersId int IDENTITY(1,1) NOT NULL,
-	FkFormQuestionAnswersId int NOT NULL,
-	FkFormQuestionid int NOT NULL,
+CREATE TABLE NEPABPM.Project.FormDropdownAnswersHistory (
+	FormDropdownAnswersHistoryId int IDENTITY(1,1) NOT NULL,
+	FkFormQuestionAnswersHistoryId int NOT NULL,
 	FkFormDropdownOptionId int NOT NULL,
 	CreatedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CreatedDate datetime NOT NULL,
-	CONSTRAINT PK__FormDrop__5D87136E374359C0 PRIMARY KEY (FormDropdownAnswersId)
+	CONSTRAINT PK__FormDropdownAnswersHistory__FormDropdownAnswersHistoryId PRIMARY KEY (FormDropdownAnswersHistoryId)
 );
 
 
+-- NEPABPM.Project.FormDropdownAnswersHistory foreign keys
 
-
-
--- NEPABPM.Project.FormDropdownAnswers foreign keys
-
-ALTER TABLE NEPABPM.Project.FormDropdownAnswers ADD CONSTRAINT FK__FormDropd__FkFor__70FDBF69 FOREIGN KEY (FkFormQuestionAnswersId) REFERENCES NEPABPM.Project.FormQuestionAnswers(FormQuestionAnswersId);
-ALTER TABLE NEPABPM.Project.FormDropdownAnswers ADD CONSTRAINT FK__FormDropd__FkFor__71F1E3A2 FOREIGN KEY (FkFormQuestionid) REFERENCES NEPABPM.App.FormQuestion(FormQuestionId);
-ALTER TABLE NEPABPM.Project.FormDropdownAnswers ADD CONSTRAINT FK__FormDropd__FkFor__72E607DB FOREIGN KEY (FkFormDropdownOptionId) REFERENCES NEPABPM.App.FormDropdownOption(FormDropdownOptionId);
+ALTER TABLE NEPABPM.Project.FormDropdownAnswersHistory ADD CONSTRAINT FK_FormDropdownAnswersHistory_FormQuestionAnswersHistory FOREIGN KEY (FkFormQuestionAnswersHistoryId) REFERENCES NEPABPM.Project.FormQuestionAnswersHistory(FormQuestionAnswersHistoryId);
 
 
 
 
 
--- NEPABPM.Project.FormSubSectionAnswers definition
+
+
+
+-- NEPABPM.Project.FormSubSectionAnswersHistory definition
 
 -- Drop table
 
--- DROP TABLE NEPABPM.Project.FormSubSectionAnswers;
+-- DROP TABLE NEPABPM.Project.FormSubSectionAnswersHistory;
 
-CREATE TABLE NEPABPM.Project.FormSubSectionAnswers (
-	FormSubSectionAnswersId int IDENTITY(1,1) NOT NULL,
-	FkProjectId int NOT NULL,
+CREATE TABLE NEPABPM.Project.FormSubSectionAnswersHistory (
+	FormSubSectionAnswersHistoryId int IDENTITY(1,1) NOT NULL,
+	FkDocumentFinalizationId int NOT NULL,
 	FkFormSubSectionId int NOT NULL,
 	SummaryAnswer varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CreatedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -83,14 +103,13 @@ CREATE TABLE NEPABPM.Project.FormSubSectionAnswers (
 	UpdatedDate datetime NULL,
 	SummaryTableImage varbinary(MAX) NULL,
 	SummaryAnswerUnformatted varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	CONSTRAINT PK__FormSubS__42A7B23382A47E14 PRIMARY KEY (FormSubSectionAnswersId)
+	CONSTRAINT PK__FormSubS__42A7B23382A47E14 PRIMARY KEY (FormSubSectionAnswersHistoryId)
 );
 
 
--- NEPABPM.Project.FormSubSectionAnswers foreign keys
+-- NEPABPM.Project.FormSubSectionAnswersHistory foreign keys
 
-ALTER TABLE NEPABPM.Project.FormSubSectionAnswers ADD CONSTRAINT FK__FormSubSe__FkFor__592635D8 FOREIGN KEY (FkFormSubSectionId) REFERENCES NEPABPM.App.FormSubSection(FormSubSectionId);
-ALTER TABLE NEPABPM.Project.FormSubSectionAnswers ADD CONSTRAINT FK__FormSubSe__FkPro__5A1A5A11 FOREIGN KEY (FkProjectId) REFERENCES NEPABPM.Project.Project(ProjectId);
+ALTER TABLE NEPABPM.Project.FormSubSectionAnswersHistory ADD CONSTRAINT FK_FormSubSectionAnswersHistory_DocumentFinalization FOREIGN KEY (FkDocumentFinalizationId) REFERENCES NEPABPM.Project.DocumentFinalization(DocumentFinalizationId);
 
 
 
