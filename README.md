@@ -19,4 +19,15 @@ General Idea:
 
 # 3. App history
 
-TODO:
+SQL: TODO
+
+General Idea:
+- create a history table for each of those App entities:
+    - `App.FormSubsection`
+    - `App.FormSection`
+    - `App.FormDropDownOption`
+    - `App.FormQuestion`
+    - `App.FormSubsectionQuestion`
+
+e.g.
+![App History.png](App%20History.png)

@@ -103,7 +103,7 @@ CREATE TABLE NEPABPM.Project.FormSubSectionAnswersHistory (
 	UpdatedDate datetime NULL,
 	SummaryTableImage varbinary(MAX) NULL,
 	SummaryAnswerUnformatted varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	CONSTRAINT PK__FormSubS__42A7B23382A47E14 PRIMARY KEY (FormSubSectionAnswersHistoryId)
+	CONSTRAINT PK__FormSubSectionAnswersHistory__FormSubSectionAnswersHistoryId PRIMARY KEY (FormSubSectionAnswersHistoryId)
 );
 
 
