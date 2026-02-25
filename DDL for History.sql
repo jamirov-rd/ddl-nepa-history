@@ -14,8 +14,15 @@ CREATE TABLE NEPABPM.Project.DocumentFinalization (
 	DocumentFinalizationId int IDENTITY(1,1) NOT NULL,
 	FkProjectId int NOT NULL,
 	FkDocumentId int NOT NULL,
-	FinalizedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	FinalizationDate datetime NULL
+	FinalizedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	FinalizationDate datetime NOT NULL,
+	AssignmentId int NOT NULL,
+	IsWorkflowCompleted bit NOT NULL CONSTRAINT DF_DocumentFinalization_IsWorkflowCompleted DEFAULT (0),
+
+	IsUnfinalized bit NOT NULL CONSTRAINT DF_DocumentFinalization_IsUnfinalized DEFAULT (0),
+	UnFinalizedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	UnFinalizationDate datetime NULL,
+
 	CONSTRAINT PK__DocumentFinalization__DocumentFinalizationId PRIMARY KEY (DocumentFinalizationId)
 );
 
@@ -27,6 +34,9 @@ ALTER TABLE NEPABPM.Project.DocumentFinalization ADD CONSTRAINT DocumentFinaliza
 
 CREATE NONCLUSTERED INDEX IX_DocumentFinalization_FinalizationDate
 ON NEPABPM.Project.DocumentFinalization (FinalizationDate);
+
+CREATE NONCLUSTERED INDEX IX_DocumentFinalization_AssignmentId
+ON NEPABPM.Project.DocumentFinalization (AssignmentId);
 
 
 
@@ -99,9 +109,6 @@ ON NEPABPM.Project.FormDropdownAnswersHistory (FkFormQuestionAnswersId);
 
 CREATE NONCLUSTERED INDEX IX_FormDropdownAnswersHistory_FkFormDropdownOptionId
 ON NEPABPM.Project.FormDropdownAnswersHistory (FkFormDropdownOptionId);
-
-
-
 
 
 
