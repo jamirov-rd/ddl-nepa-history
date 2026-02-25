@@ -5,8 +5,16 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    DECLARE @TranStarted BIT = 0;
+    
     BEGIN TRY
-        BEGIN TRANSACTION;
+        IF @@TRANCOUNT = 0
+        BEGIN
+            BEGIN TRANSACTION;
+            SET @TranStarted = 1;
+        END
+        ELSE
+            SAVE TRANSACTION SP_FinalizeDocument;
 
         -- Read ProjectId from Document
         DECLARE @ProjectId INT;
@@ -127,14 +135,17 @@ BEGIN
         FROM NEPABPM.Project.FormSubSectionAnswers fssa
         WHERE fssa.FkProjectId = @ProjectId;
 
-        COMMIT TRANSACTION;
+        IF @TranStarted = 1
+            COMMIT TRANSACTION;
 
         SELECT @DocumentFinalizationId AS DocumentFinalizationId;
 
     END TRY
     BEGIN CATCH
-        IF @@TRANCOUNT > 0
+        IF @TranStarted = 1 AND @@TRANCOUNT > 0
             ROLLBACK TRANSACTION;
+        ELSE IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION SP_FinalizeDocument;
 
         THROW;
     END CATCH
