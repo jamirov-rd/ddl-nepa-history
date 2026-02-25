@@ -1,4 +1,4 @@
-CREATE PROCEDURE NEPABPM.App.usp_InsertFormDropdownOptionHistory
+CREATE PROCEDURE App.usp_InsertFormDropdownOptionHistory
     @FormDropdownOptionId int
 AS
 BEGIN
@@ -50,7 +50,7 @@ END;
 
 
 
-CREATE PROCEDURE NEPABPM.App.usp_InsertFormQuestionHistory
+CREATE PROCEDURE App.usp_InsertFormQuestionHistory
     @FormQuestionId int
 AS
 BEGIN
@@ -120,7 +120,7 @@ END;
 
 
 
-CREATE PROCEDURE NEPABPM.App.usp_InsertFormSubSectionHistory
+CREATE PROCEDURE App.usp_InsertFormSubSectionHistory
     @FormSubSectionId int
 AS
 BEGIN
@@ -174,7 +174,7 @@ END;
 
 
 
-CREATE PROCEDURE NEPABPM.App.usp_InsertFormSectionHistory
+CREATE PROCEDURE App.usp_InsertFormSectionHistory
     @FormSectionId int
 AS
 BEGIN
@@ -218,7 +218,7 @@ END;
 
 
 
-CREATE PROCEDURE NEPABPM.App.usp_InsertFormSubSectionQuestionHistory
+CREATE PROCEDURE App.usp_InsertFormSubSectionQuestionHistory
     @FormSubSectionQuestionId int
 AS
 BEGIN

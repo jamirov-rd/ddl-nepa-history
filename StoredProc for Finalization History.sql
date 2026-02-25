@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE NEPABPM.Project.usp_FinalizeDocument
+CREATE OR ALTER PROCEDURE Project.usp_FinalizeDocument
     @DocumentId INT,
     @FinalizedBy VARCHAR(50)
 AS
@@ -49,7 +49,7 @@ BEGIN
                 fqa.UpdatedDate,
                 fqa.TextAnswerUnformatted
             FROM NEPABPM.Project.FormQuestionAnswers fqa
-            WHERE fqa.FkDocumentId = @DocumentId
+            WHERE fqa.FkProjectId = @ProjectId
         ) AS source
         ON 1 = 0
         WHEN NOT MATCHED THEN
@@ -125,7 +125,7 @@ BEGIN
             fssa.SummaryTableImage,
             fssa.SummaryAnswerUnformatted
         FROM NEPABPM.Project.FormSubSectionAnswers fssa
-        WHERE fssa.FkDocumentId = @DocumentId;
+        WHERE fssa.FkProjectId = @ProjectId;
 
         COMMIT TRANSACTION;
 
