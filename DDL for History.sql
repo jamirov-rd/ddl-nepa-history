@@ -17,7 +17,7 @@ CREATE TABLE NEPABPM.Project.DocumentFinalization (
 	FinalizedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	FinalizationDate datetime NOT NULL,
 	AssignmentId int NOT NULL,
-	IsWorkflowCompleted bit NOT NULL CONSTRAINT DF_DocumentFinalization_IsWorkflowCompleted DEFAULT (0),
+	IsWorkflowCompletedSuccessfully bit NOT NULL CONSTRAINT DF_DocumentFinalization_IsWorkflowCompletedSuccessfully DEFAULT (0),
 
 	IsUnfinalized bit NOT NULL CONSTRAINT DF_DocumentFinalization_IsUnfinalized DEFAULT (0),
 	UnFinalizedBy varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
