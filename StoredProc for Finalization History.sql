@@ -114,6 +114,7 @@ BEGIN
         -- 4) Copy FormSubSectionAnswers -> FormSubSectionAnswersHistory
         INSERT INTO NEPABPM.Project.FormSubSectionAnswersHistory (
             FkDocumentFinalizationId,
+        	FormSubSectionAnswersId,
             FkFormSubSectionId,
             SummaryAnswer,
             CreatedBy,
@@ -125,6 +126,7 @@ BEGIN
         )
         SELECT
             @DocumentFinalizationId,
+            fssa.FormSubSectionAnswersId,
             fssa.FkFormSubSectionId,
             fssa.SummaryAnswer,
             fssa.CreatedBy,
