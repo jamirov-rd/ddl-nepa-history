@@ -1,10 +1,9 @@
 CREATE PROCEDURE App.usp_InsertFormDropdownOptionHistory
-    @FormDropdownOptionId int
+    @FormDropdownOptionId int,
+    @Now DATETIME
 AS
 BEGIN
     SET NOCOUNT ON;
-
-    DECLARE @Now datetime = GETDATE();
 
     -- Close out the previous history record by setting its end date
     UPDATE NEPABPM.App.FormDropdownOptionHistory
@@ -51,12 +50,11 @@ END;
 
 
 CREATE PROCEDURE App.usp_InsertFormQuestionHistory
-    @FormQuestionId int
+    @FormQuestionId int,
+    @Now DATETIME
 AS
 BEGIN
     SET NOCOUNT ON;
-
-    DECLARE @Now datetime = GETDATE();
 
     -- Close out the previous history record
     UPDATE NEPABPM.App.FormQuestionHistory
@@ -121,12 +119,11 @@ END;
 
 
 CREATE PROCEDURE App.usp_InsertFormSubSectionHistory
-    @FormSubSectionId int
+    @FormSubSectionId int,
+    @Now DATETIME
 AS
 BEGIN
     SET NOCOUNT ON;
-
-    DECLARE @Now datetime = GETDATE();
 
     UPDATE NEPABPM.App.FormSubSectionHistory
     SET HistoryDateTo = @Now
@@ -175,12 +172,11 @@ END;
 
 
 CREATE PROCEDURE App.usp_InsertFormSectionHistory
-    @FormSectionId int
+    @FormSectionId int,
+    @Now DATETIME
 AS
 BEGIN
     SET NOCOUNT ON;
-
-    DECLARE @Now datetime = GETDATE();
 
     UPDATE NEPABPM.App.FormSectionHistory
     SET HistoryDateTo = @Now
@@ -219,12 +215,11 @@ END;
 
 
 CREATE PROCEDURE App.usp_InsertFormSubSectionQuestionHistory
-    @FormSubSectionQuestionId int
+    @FormSubSectionQuestionId int,
+    @Now DATETIME
 AS
 BEGIN
     SET NOCOUNT ON;
-
-    DECLARE @Now datetime = GETDATE();
 
     UPDATE NEPABPM.App.FormSubSectionQuestionHistory
     SET HistoryDateTo = @Now

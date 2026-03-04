@@ -3,6 +3,7 @@
 --------------------------------------------------------
 
 DECLARE @Id INT;
+DECLARE @Now DATETIME = GETDATE();
 
 DECLARE cur CURSOR LOCAL FAST_FORWARD FOR
     SELECT FormDropdownOptionId FROM NEPABPM.App.FormDropdownOption;
@@ -12,7 +13,7 @@ FETCH NEXT FROM cur INTO @Id;
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
-    EXEC App.usp_InsertFormDropdownOptionHistory @FormDropdownOptionId = @Id;
+    EXEC App.usp_InsertFormDropdownOptionHistory @FormDropdownOptionId = @Id, @Now = @Now;
     FETCH NEXT FROM cur INTO @Id;
 END
 
@@ -24,6 +25,7 @@ DEALLOCATE cur;
 --------------------------------------------
 
 DECLARE @Id INT;
+DECLARE @Now DATETIME = GETDATE();
 
 DECLARE cur CURSOR LOCAL FAST_FORWARD FOR
     SELECT FormQuestionId FROM NEPABPM.App.FormQuestion;
@@ -33,7 +35,7 @@ FETCH NEXT FROM cur INTO @Id;
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
-    EXEC App.usp_InsertFormQuestionHistory @FormQuestionId = @Id;
+    EXEC App.usp_InsertFormQuestionHistory @FormQuestionId = @Id, @Now = @Now;
     FETCH NEXT FROM cur INTO @Id;
 END
 
@@ -45,6 +47,7 @@ DEALLOCATE cur;
 ------------------------------------------------
 
 DECLARE @Id INT;
+DECLARE @Now DATETIME = GETDATE();
 
 DECLARE cur CURSOR LOCAL FAST_FORWARD FOR
     SELECT FormSubSectionId FROM NEPABPM.App.FormSubSection;
@@ -54,7 +57,7 @@ FETCH NEXT FROM cur INTO @Id;
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
-    EXEC App.usp_InsertFormSubSectionHistory @FormSubSectionId = @Id;
+    EXEC App.usp_InsertFormSubSectionHistory @FormSubSectionId = @Id, @Now = @Now;
     FETCH NEXT FROM cur INTO @Id;
 END
 
@@ -66,6 +69,7 @@ DEALLOCATE cur;
 ------------------------------------------
 
 DECLARE @Id INT;
+DECLARE @Now DATETIME = GETDATE();
 
 DECLARE cur CURSOR LOCAL FAST_FORWARD FOR
     SELECT FormSectionId FROM NEPABPM.App.FormSection;
@@ -75,7 +79,7 @@ FETCH NEXT FROM cur INTO @Id;
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
-    EXEC App.usp_InsertFormSectionHistory @FormSectionId = @Id;
+    EXEC App.usp_InsertFormSectionHistory @FormSectionId = @Id, @Now = @Now;
     FETCH NEXT FROM cur INTO @Id;
 END
 
@@ -87,6 +91,7 @@ DEALLOCATE cur;
 ----------------------------------------------------------------
 
 DECLARE @Id INT;
+DECLARE @Now DATETIME = GETDATE();
 
 DECLARE cur CURSOR LOCAL FAST_FORWARD FOR
     SELECT FormSubSectionQuestionId FROM NEPABPM.App.FormSubSectionQuestion;
@@ -96,7 +101,7 @@ FETCH NEXT FROM cur INTO @Id;
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
-    EXEC App.usp_InsertFormSubSectionQuestionHistory @FormSubSectionQuestionId = @Id;
+    EXEC App.usp_InsertFormSubSectionQuestionHistory @FormSubSectionQuestionId = @Id, @Now = @Now;
     FETCH NEXT FROM cur INTO @Id;
 END
 

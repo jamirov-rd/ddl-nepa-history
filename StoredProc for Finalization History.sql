@@ -1,7 +1,8 @@
 CREATE OR ALTER PROCEDURE Project.usp_FinalizeDocument
     @DocumentId INT,
     @FinalizedBy VARCHAR(50),
-    @AssignmentId INT
+    @AssignmentId INT,
+    @FinalizationDate DATETIME
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -34,7 +35,7 @@ BEGIN
         DECLARE @DocumentFinalizationId INT;
 
         INSERT INTO NEPABPM.Project.DocumentFinalization (FkProjectId, FkDocumentId, FinalizedBy, FinalizationDate, AssignmentId)
-        VALUES (@ProjectId, @DocumentId, @FinalizedBy, GETDATE(), @AssignmentId);
+        VALUES (@ProjectId, @DocumentId, @FinalizedBy, @FinalizationDate, @AssignmentId);
 
         SET @DocumentFinalizationId = SCOPE_IDENTITY();
 
