@@ -1,4 +1,4 @@
-CREATE PROCEDURE App.usp_InsertFormDropdownOptionHistory
+CREATE OR ALTER PROCEDURE App.usp_InsertFormDropdownOptionHistory
     @FormDropdownOptionId int,
     @Now DATETIME
 AS
@@ -49,7 +49,7 @@ END;
 
 
 
-CREATE PROCEDURE App.usp_InsertFormQuestionHistory
+CREATE OR ALTER PROCEDURE App.usp_InsertFormQuestionHistory
     @FormQuestionId int,
     @Now DATETIME
 AS
@@ -118,7 +118,7 @@ END;
 
 
 
-CREATE PROCEDURE App.usp_InsertFormSubSectionHistory
+CREATE OR ALTER PROCEDURE App.usp_InsertFormSubSectionHistory
     @FormSubSectionId int,
     @Now DATETIME
 AS
@@ -171,7 +171,7 @@ END;
 
 
 
-CREATE PROCEDURE App.usp_InsertFormSectionHistory
+CREATE OR ALTER PROCEDURE App.usp_InsertFormSectionHistory
     @FormSectionId int,
     @Now DATETIME
 AS
@@ -214,7 +214,7 @@ END;
 
 
 
-CREATE PROCEDURE App.usp_InsertFormSubSectionQuestionHistory
+CREATE OR ALTER PROCEDURE App.usp_InsertFormSubSectionQuestionHistory
     @FormSubSectionQuestionId int,
     @Now DATETIME
 AS
